@@ -2,39 +2,72 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 
 export function Quiz() {
+  const difficulties = ["Easy", "Moderate", "Hard"];
+  const [difficulty, setDifficulty] = useState("Easy");
   const [questionIndex, setQuestionIndex] = useState(0);
-  const questions = [
-    {
-      question: "What does HTML stand for?",
-      options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
-      answer: 0,
-    },
-    {
-      question: "Which language is primarily used for styling web pages?",
-      options: ["JavaScript", "CSS", "Python"],
-      answer: 1,
-    },
-  ];
+  const [points, setPoints] = useState(0);
 
+  const questionsByDifficulty = {
+    Easy: Array.from({ length: 20 }, (_, i) => ({
+      question: `Easy Question ${i + 1}`,
+      options: ["Option A", "Option B", "Option C"],
+      answer: 0,
+      points: 10,
+    })),
+    Moderate: Array.from({ length: 20 }, (_, i) => ({
+      question: `Moderate Question ${i + 1}`,
+      options: ["Option A", "Option B", "Option C"],
+      answer: 1,
+      points: 20,
+    })),
+    Hard: Array.from({ length: 20 }, (_, i) => ({
+      question: `Hard Question ${i + 1}`,
+      options: ["Option A", "Option B", "Option C"],
+      answer: 2,
+      points: 30,
+    })),
+  };
+
+  const questions = questionsByDifficulty[difficulty];
   const current = questions[questionIndex];
 
+  const handleAnswer = (idx: number) => {
+    if (idx === current.answer) {
+      setPoints((p) => p + current.points);
+      alert("Correct!");
+    } else {
+      alert("Try again.");
+    }
+  };
+
   return (
-    <div className="mt-6 w-full max-w-md rounded-lg border p-4">
+    <Card className="mt-6 w-full max-w-md p-4">
+      <div className="flex items-center justify-between mb-4">
+        <Select value={difficulty} onValueChange={setDifficulty}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select difficulty" />
+          </SelectTrigger>
+          <SelectContent>
+            {difficulties.map((level) => (
+              <SelectItem key={level} value={level}>
+                {level}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <span className="text-sm font-medium">Points: {points}</span>
+      </div>
       <h3 className="mb-4 text-lg font-semibold">{current.question}</h3>
       <div className="flex flex-col gap-2">
         {current.options.map((opt, idx) => (
           <Button
             key={idx}
             variant={idx === current.answer ? "outline" : "ghost"}
-            onClick={() => {
-              if (idx === current.answer) {
-                alert("Correct!");
-              } else {
-                alert("Try again.");
-              }
-            }}
+            onClick={() => handleAnswer(idx)}
           >
             {opt}
           </Button>
@@ -46,6 +79,6 @@ export function Quiz() {
       >
         Next Question
       </Button>
-    </div>
+    </Card>
   );
 }

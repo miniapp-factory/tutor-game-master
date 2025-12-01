@@ -7,7 +7,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 export function Quiz() {
   const difficulties = ["Easy", "Moderate", "Hard"];
-  const [difficulty, setDifficulty] = useState("Easy");
+  const [difficulty, setDifficulty] = useState<keyof typeof questionsByDifficulty>("Easy");
   const [questionIndex, setQuestionIndex] = useState(0);
   const [points, setPoints] = useState(0);
 
@@ -30,7 +30,7 @@ export function Quiz() {
       answer: 2,
       points: 30,
     })),
-  };
+  } as const;
 
   const questions = questionsByDifficulty[difficulty];
   const current = questions[questionIndex];

@@ -80,7 +80,7 @@ export function Quiz() {
   };
 
   return (
-    <Card className="mt-6 w-full max-w-md p-4">
+    <Card className="mt-6 w-full max-w-md p-4 bg-[#1a1a1a] text-[#ff00ff]">
       <div className="flex items-center justify-between mb-4">
         <Select value={difficulty} onValueChange={(value) => setDifficulty(value as keyof typeof questionsByDifficulty)}>
           <SelectTrigger className="w-[180px]">

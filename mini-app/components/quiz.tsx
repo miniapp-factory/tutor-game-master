@@ -12,24 +12,59 @@ export function Quiz() {
   const [points, setPoints] = useState(0);
 
   const questionsByDifficulty = {
-    Easy: Array.from({ length: 20 }, (_, i) => ({
-      question: `Easy Question ${i + 1}`,
-      options: ["Option A", "Option B", "Option C"],
-      answer: 0,
-      points: 10,
-    })),
-    Moderate: Array.from({ length: 20 }, (_, i) => ({
-      question: `Moderate Question ${i + 1}`,
-      options: ["Option A", "Option B", "Option C"],
-      answer: 1,
-      points: 20,
-    })),
-    Hard: Array.from({ length: 20 }, (_, i) => ({
-      question: `Hard Question ${i + 1}`,
-      options: ["Option A", "Option B", "Option C"],
-      answer: 2,
-      points: 30,
-    })),
+    Easy: [
+      {
+        question: "What does HTML stand for?",
+        options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+        answer: 0,
+        points: 10,
+      },
+      {
+        question: "Which language is primarily used for styling web pages?",
+        options: ["JavaScript", "CSS", "Python"],
+        answer: 1,
+        points: 10,
+      },
+      // ... add 18 more easy questions
+    ],
+    Moderate: [
+      {
+        question: "What is the purpose of a database index?",
+        options: ["To speed up queries", "To store data", "To backup data"],
+        answer: 0,
+        points: 20,
+      },
+      {
+        question: "Which protocol is used to securely transfer files over the internet?",
+        options: ["FTP", "SFTP", "HTTP"],
+        answer: 1,
+        points: 20,
+      },
+      // ... add 18 more moderate questions
+    ],
+    Hard: [
+      {
+        question: "Explain the concept of polymorphism in object-oriented programming.",
+        options: [
+          "The ability of an object to take on many forms",
+          "The ability to store multiple data types in a single variable",
+          "The ability to inherit from multiple classes"
+        ],
+        answer: 0,
+        points: 30,
+      },
+      {
+        question: "What is a deadlock in concurrent programming?",
+        options: [
+          "A situation where two or more processes are waiting for each other to release resources",
+          "A process that never terminates",
+          "A process that consumes all CPU resources"
+        ],
+        answer: 0,
+        points: 30,
+      },
+      // ... add 18 more hard questions
+    ],
   } as const;
 
   const questions = questionsByDifficulty[difficulty];
